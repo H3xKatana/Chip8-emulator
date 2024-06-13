@@ -3,7 +3,7 @@ import random
 from sys import argv, exit
 
 DARK = (0, 0, 50)
-WHITE = (255, 255, 255)
+WHITE = (127, 255, 212)
 SIZE = 10
 
 key_map = {
@@ -18,7 +18,6 @@ class Chip8:
         pygame.init()
         pygame.mixer.init()
         pygame.time.set_timer(pygame.USEREVENT+1, int(1000 / 60))
-        
         self.clock = pygame.time.Clock()
         self.memory = bytearray(4096)
         self.V = bytearray(16)  # Registers V0 to VF
@@ -237,12 +236,13 @@ class Chip8:
         if self.delay_timer > 0:
             self.delay_timer -= 1
         if self.sound_timer > 0:
-            pygame.mixer.Sound('beep.wav').play()
+            if self.enable_sound:
+                pygame.mixer.Sound('beep.wav').play()
             self.sound_timer -= 1
 
     def mainloop(self):
         while True:
-            self.clock.tick(60)
+            self.clock.tick(600)
             self.keyhandler()
             self.emulate_cycle()
             self.update_timers()
@@ -266,10 +266,15 @@ if __name__ == "__main__":
 
             """
     print(message)
-    if len(argv) != 2:
+    print("Usage: python chip.py <path_to_rom>")
+    print(" add  -s if your want to enable sound ")
+    if len(argv) < 2:
         print("Usage: python chip.py <path_to_rom>")
+        print(" add  -s if your want to enable sound ")
         exit()
-
+    
     chip8 = Chip8()
     chip8.load_rom(argv[1])
+    if len(argv) >= 3 and argv[2] == '-s':
+        chip8.enable_sound = True
     chip8.mainloop()

@@ -52,44 +52,8 @@
 | C    | B          |
 | V    | F          |
 
-## Project Structure
 
-- `chip.py`: Main emulator code.
-- `beep.wav`: Sound file for the CHIP-8 sound timer.
-- `README.md`: Project documentation.
 
-## How It Works
-
-The emulator is built around the main `Chip8` class, which handles:
-
-- **Memory Management:** Emulates the 4KB memory space of the CHIP-8.
-- **Registers:** 16 general-purpose 8-bit registers (V0 to VF) and special-purpose registers like the index register (I) and the program counter (pc).
-- **Timers:** Implements delay and sound timers.
-- **Graphics:** 64x32 monochrome display managed by a 1D array.
-- **Input Handling:** Maps keyboard inputs to CHIP-8 keys.
-
-### Emulator Cycle
-
-The emulator follows a simple loop:
-1. Fetch the next opcode from memory.
-2. Decode and execute the opcode.
-3. Update timers and handle input.
-4. Render the display.
-
-## Example
-
-To run a ROM, use the following command:
-```sh
-python chip.py path/to/your/rom.ch8
-```
-
-Replace `path/to/your/rom.ch8` with the actual path to your CHIP-8 ROM file.
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
 
 
 
